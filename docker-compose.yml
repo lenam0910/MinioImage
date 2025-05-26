@@ -1,8 +1,6 @@
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: lenam0910/minio-app:latest
     container_name: springboot-app
     ports:
       - "8080:8080"
