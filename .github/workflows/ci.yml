@@ -35,4 +35,4 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: yourusername/minio-app:latest
+        tags: lenam0910/minio-image-app:latest
