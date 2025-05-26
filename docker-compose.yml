@@ -1,0 +1,40 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: springboot-app
+    ports:
+      - "8080:8080"
+    environment:
+      - minio.url=http://minio-image:9000
+      - minio.access-key=admin2
+      - minio.secret-key=password2
+      - minio.bucket-name=image-avar
+    depends_on:
+      - minio-image
+    networks:
+      - app-network
+
+  minio-image:
+    image: quay.io/minio/minio:latest
+    container_name: minio
+    ports:
+      - "9003:9000"
+      - "9004:9001"
+    environment:
+      - MINIO_ROOT_USER=admin2
+      - MINIO_ROOT_PASSWORD=password2
+    volumes:
+      - minio-data:/data
+    command: server /data --console-address ":9001"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  minio-data:
+    driver: local
