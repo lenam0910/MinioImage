@@ -1,6 +1,6 @@
 services:
   app:
-    image: lenam0910/minio-app:latest
+    image: lenam0910/minio-image-app:latest
     container_name: springboot-app
     ports:
       - "8080:8080"
@@ -9,6 +9,7 @@ services:
       - minio.access-key=admin2
       - minio.secret-key=password2
       - minio.bucket-name=image-avar
+    restart: always
     depends_on:
       - minio-image
     networks:
@@ -23,6 +24,7 @@ services:
     environment:
       - MINIO_ROOT_USER=admin2
       - MINIO_ROOT_PASSWORD=password2
+    restart: always
     volumes:
       - minio-data:/data
     command: server /data --console-address ":9001"
